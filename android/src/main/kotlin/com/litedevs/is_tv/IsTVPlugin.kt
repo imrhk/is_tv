@@ -23,14 +23,14 @@ class IsTVPlugin: FlutterPlugin, MethodCallHandler {
     pm?.hasSystemFeature(PackageManager.FEATURE_LEANBACK) ?: false
   }
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+  override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "is_tv")
     channel.setMethodCallHandler(this)
 
     pm = flutterPluginBinding.applicationContext.packageManager;
   }
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+  override fun onMethodCall(call: MethodCall, result: Result) {
     if (call.method == "check") {
       result.success(isTV)
     } else {
@@ -38,7 +38,7 @@ class IsTVPlugin: FlutterPlugin, MethodCallHandler {
     }
   }
 
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
     pm = null;
   }
